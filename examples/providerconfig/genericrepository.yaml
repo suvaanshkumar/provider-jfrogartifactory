@@ -1,0 +1,11 @@
+apiVersion: repository.upbound.io/v1alpha1
+kind: GenericRepository
+metadata:
+  name: example-repository
+spec:
+  deletionPolicy: Delete
+  forProvider:
+    name: example-repo-key
+    key: example-repo-key
+  providerConfigRef:
+    name: my-artifactory-providerconfig
