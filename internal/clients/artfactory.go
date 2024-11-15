@@ -7,6 +7,7 @@ package clients
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 
 	"github.com/crossplane/crossplane-runtime/pkg/resource"
 	"github.com/pkg/errors"
@@ -68,8 +69,9 @@ func TerraformSetupBuilder(version, providerSource, providerVersion string) terr
 		}
 
 		if creds["url"] == "" || creds["access_token"] == "" {
-			return ps, errors.New("missing required Artifactory credentials: url or access_token")
+			println("missing required Artifactory credentials: url or access_token")
 		}
+		fmt.Println(creds["url"])
 
 		// Set credentials in Terraform provider configuration.
 		ps.Configuration = map[string]any{
