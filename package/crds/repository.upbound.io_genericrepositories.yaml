@@ -4,18 +4,18 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.14.0
-  name: resources.null.artfactory.upbound.io
+  name: genericrepositories.repository.upbound.io
 spec:
-  group: null.artfactory.upbound.io
+  group: repository.upbound.io
   names:
     categories:
     - crossplane
     - managed
     - artfactory
-    kind: Resource
-    listKind: ResourceList
-    plural: resources
-    singular: resource
+    kind: GenericRepository
+    listKind: GenericRepositoryList
+    plural: genericrepositories
+    singular: genericrepository
   scope: Cluster
   versions:
   - additionalPrinterColumns:
@@ -34,10 +34,8 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: Resource is the Schema for the Resources API. The null_resource
-          resource implements the standard resource lifecycle but takes no further
-          action.hashicorp. The triggers argument allows specifying an arbitrary set
-          of values that, when changed, will cause the resource to be replaced.
+        description: GenericRepository is the Schema for the GenericRepositorys API.
+          <no value>
         properties:
           apiVersion:
             description: |-
@@ -57,7 +55,7 @@ spec:
           metadata:
             type: object
           spec:
-            description: ResourceSpec defines the desired state of Resource
+            description: GenericRepositorySpec defines the desired state of GenericRepository
             properties:
               deletionPolicy:
                 default: Delete
@@ -75,14 +73,84 @@ spec:
                 type: string
               forProvider:
                 properties:
-                  triggers:
-                    additionalProperties:
-                      type: string
+                  archiveBrowsingEnabled:
                     description: |-
-                      running any associated provisioners.
-                      A map of arbitrary strings that, when changed, will force the null resource to be replaced, re-running any associated provisioners.
-                    type: object
-                    x-kubernetes-map-type: granular
+                      When set, you may view content such as HTML or Javadoc files directly from Artifactory.
+                      This may not be safe and therefore requires strict content moderation to prevent malicious users from uploading content that may compromise security (e.g., cross-site scripting attacks).
+                    type: boolean
+                  blackedOut:
+                    description: When set, the repository does not participate in
+                      artifact resolution and new artifacts cannot be deployed.
+                    type: boolean
+                  cdnRedirect:
+                    description: When set, download requests to this repository will
+                      redirect the client to download the artifact directly from AWS
+                      CloudFront. Available in Enterprise+ and Edge licenses only.
+                      Default value is 'false'
+                    type: boolean
+                  description:
+                    description: Public description.
+                    type: string
+                  downloadDirect:
+                    description: When set, download requests to this repository will
+                      redirect the client to download the artifact directly from the
+                      cloud storage provider. Available in Enterprise+ and Edge licenses
+                      only.
+                    type: boolean
+                  excludesPattern:
+                    description: List of artifact patterns to exclude when evaluating
+                      artifact requests, in the form of `x/y/**/z/*`.By default no
+                      artifacts are excluded.
+                    type: string
+                  includesPattern:
+                    description: List of comma-separated artifact patterns to include
+                      when evaluating artifact requests in the form of `x/y/**/z/*`.
+                      When used, only artifacts matching one of the include patterns
+                      are served. By default, all artifacts are included (`**/*`).
+                    type: string
+                  key:
+                    description: A mandatory identifier for the repository that must
+                      be unique. Must be 1 - 64 alphanumeric and hyphen characters.
+                      It cannot contain spaces or special characters.
+                    type: string
+                  notes:
+                    description: Internal description.
+                    type: string
+                  priorityResolution:
+                    description: Setting repositories with priority will cause metadata
+                      to be merged only from repositories set with this field
+                    type: boolean
+                  projectEnvironments:
+                    description: 'Project environment for assigning this repository
+                      to. Allow values: "DEV", "PROD", or one of custom environment.
+                      Before Artifactory 7.53.1, up to 2 values ("DEV" and "PROD")
+                      are allowed. From 7.53.1 onward, only one value is allowed.
+                      The attribute should only be used if the repository is already
+                      assigned to the existing project.'
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
+                  projectKey:
+                    description: Project key for assigning this repository to. Must
+                      be 2 - 32 lowercase alphanumeric and hyphen characters. When
+                      assigning repository to a project, repository key must be prefixed
+                      with project key, separated by a dash.
+                    type: string
+                  propertySets:
+                    description: List of property set name
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
+                  repoLayoutRef:
+                    description: Repository layout key for the local repository
+                    type: string
+                  xrayIndex:
+                    description: Enable Indexing In Xray. Repository will be indexed
+                      with the default retention period. You will be able to change
+                      it via Xray settings.
+                    type: boolean
                 type: object
               initProvider:
                 description: |-
@@ -97,14 +165,84 @@ spec:
                   for example because of an external controller is managing them, like an
                   autoscaler.
                 properties:
-                  triggers:
-                    additionalProperties:
-                      type: string
+                  archiveBrowsingEnabled:
                     description: |-
-                      running any associated provisioners.
-                      A map of arbitrary strings that, when changed, will force the null resource to be replaced, re-running any associated provisioners.
-                    type: object
-                    x-kubernetes-map-type: granular
+                      When set, you may view content such as HTML or Javadoc files directly from Artifactory.
+                      This may not be safe and therefore requires strict content moderation to prevent malicious users from uploading content that may compromise security (e.g., cross-site scripting attacks).
+                    type: boolean
+                  blackedOut:
+                    description: When set, the repository does not participate in
+                      artifact resolution and new artifacts cannot be deployed.
+                    type: boolean
+                  cdnRedirect:
+                    description: When set, download requests to this repository will
+                      redirect the client to download the artifact directly from AWS
+                      CloudFront. Available in Enterprise+ and Edge licenses only.
+                      Default value is 'false'
+                    type: boolean
+                  description:
+                    description: Public description.
+                    type: string
+                  downloadDirect:
+                    description: When set, download requests to this repository will
+                      redirect the client to download the artifact directly from the
+                      cloud storage provider. Available in Enterprise+ and Edge licenses
+                      only.
+                    type: boolean
+                  excludesPattern:
+                    description: List of artifact patterns to exclude when evaluating
+                      artifact requests, in the form of `x/y/**/z/*`.By default no
+                      artifacts are excluded.
+                    type: string
+                  includesPattern:
+                    description: List of comma-separated artifact patterns to include
+                      when evaluating artifact requests in the form of `x/y/**/z/*`.
+                      When used, only artifacts matching one of the include patterns
+                      are served. By default, all artifacts are included (`**/*`).
+                    type: string
+                  key:
+                    description: A mandatory identifier for the repository that must
+                      be unique. Must be 1 - 64 alphanumeric and hyphen characters.
+                      It cannot contain spaces or special characters.
+                    type: string
+                  notes:
+                    description: Internal description.
+                    type: string
+                  priorityResolution:
+                    description: Setting repositories with priority will cause metadata
+                      to be merged only from repositories set with this field
+                    type: boolean
+                  projectEnvironments:
+                    description: 'Project environment for assigning this repository
+                      to. Allow values: "DEV", "PROD", or one of custom environment.
+                      Before Artifactory 7.53.1, up to 2 values ("DEV" and "PROD")
+                      are allowed. From 7.53.1 onward, only one value is allowed.
+                      The attribute should only be used if the repository is already
+                      assigned to the existing project.'
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
+                  projectKey:
+                    description: Project key for assigning this repository to. Must
+                      be 2 - 32 lowercase alphanumeric and hyphen characters. When
+                      assigning repository to a project, repository key must be prefixed
+                      with project key, separated by a dash.
+                    type: string
+                  propertySets:
+                    description: List of property set name
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
+                  repoLayoutRef:
+                    description: Repository layout key for the local repository
+                    type: string
+                  xrayIndex:
+                    description: Enable Indexing In Xray. Repository will be indexed
+                      with the default retention period. You will be able to change
+                      it via Xray settings.
+                    type: boolean
                 type: object
               managementPolicies:
                 default:
@@ -273,23 +411,98 @@ spec:
             required:
             - forProvider
             type: object
+            x-kubernetes-validations:
+            - message: spec.forProvider.key is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.key)
+                || (has(self.initProvider) && has(self.initProvider.key))'
           status:
-            description: ResourceStatus defines the observed state of Resource.
+            description: GenericRepositoryStatus defines the observed state of GenericRepository.
             properties:
               atProvider:
                 properties:
-                  id:
-                    description: (String) This is set to a random value at create
-                      time.
-                    type: string
-                  triggers:
-                    additionalProperties:
-                      type: string
+                  archiveBrowsingEnabled:
                     description: |-
-                      running any associated provisioners.
-                      A map of arbitrary strings that, when changed, will force the null resource to be replaced, re-running any associated provisioners.
-                    type: object
-                    x-kubernetes-map-type: granular
+                      When set, you may view content such as HTML or Javadoc files directly from Artifactory.
+                      This may not be safe and therefore requires strict content moderation to prevent malicious users from uploading content that may compromise security (e.g., cross-site scripting attacks).
+                    type: boolean
+                  blackedOut:
+                    description: When set, the repository does not participate in
+                      artifact resolution and new artifacts cannot be deployed.
+                    type: boolean
+                  cdnRedirect:
+                    description: When set, download requests to this repository will
+                      redirect the client to download the artifact directly from AWS
+                      CloudFront. Available in Enterprise+ and Edge licenses only.
+                      Default value is 'false'
+                    type: boolean
+                  description:
+                    description: Public description.
+                    type: string
+                  downloadDirect:
+                    description: When set, download requests to this repository will
+                      redirect the client to download the artifact directly from the
+                      cloud storage provider. Available in Enterprise+ and Edge licenses
+                      only.
+                    type: boolean
+                  excludesPattern:
+                    description: List of artifact patterns to exclude when evaluating
+                      artifact requests, in the form of `x/y/**/z/*`.By default no
+                      artifacts are excluded.
+                    type: string
+                  id:
+                    type: string
+                  includesPattern:
+                    description: List of comma-separated artifact patterns to include
+                      when evaluating artifact requests in the form of `x/y/**/z/*`.
+                      When used, only artifacts matching one of the include patterns
+                      are served. By default, all artifacts are included (`**/*`).
+                    type: string
+                  key:
+                    description: A mandatory identifier for the repository that must
+                      be unique. Must be 1 - 64 alphanumeric and hyphen characters.
+                      It cannot contain spaces or special characters.
+                    type: string
+                  notes:
+                    description: Internal description.
+                    type: string
+                  packageType:
+                    type: string
+                  priorityResolution:
+                    description: Setting repositories with priority will cause metadata
+                      to be merged only from repositories set with this field
+                    type: boolean
+                  projectEnvironments:
+                    description: 'Project environment for assigning this repository
+                      to. Allow values: "DEV", "PROD", or one of custom environment.
+                      Before Artifactory 7.53.1, up to 2 values ("DEV" and "PROD")
+                      are allowed. From 7.53.1 onward, only one value is allowed.
+                      The attribute should only be used if the repository is already
+                      assigned to the existing project.'
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
+                  projectKey:
+                    description: Project key for assigning this repository to. Must
+                      be 2 - 32 lowercase alphanumeric and hyphen characters. When
+                      assigning repository to a project, repository key must be prefixed
+                      with project key, separated by a dash.
+                    type: string
+                  propertySets:
+                    description: List of property set name
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
+                  repoLayoutRef:
+                    description: Repository layout key for the local repository
+                    type: string
+                  xrayIndex:
+                    description: Enable Indexing In Xray. Repository will be indexed
+                      with the default retention period. You will be able to change
+                      it via Xray settings.
+                    type: boolean
                 type: object
               conditions:
                 description: Conditions of the resource.
