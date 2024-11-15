@@ -7,7 +7,7 @@ package config
 import (
 	// Note(turkenh): we are importing this to embed provider schema document
 	_ "embed"
-	"github.com/myorg/provider-artfactory/config/unmanaged_user"
+	"github.com/myorg/provider-artfactory/config/artifactory_local_generic_repository"
 
 	ujconfig "github.com/crossplane/upjet/pkg/config"
 )
@@ -35,7 +35,7 @@ func GetProvider() *ujconfig.Provider {
 
 	for _, configure := range []func(provider *ujconfig.Provider){
 		// add custom config functions
-		unmanaged_user.Configure,
+		artifactory_local_generic_repository.Configure,
 	} {
 		configure(pc)
 	}
