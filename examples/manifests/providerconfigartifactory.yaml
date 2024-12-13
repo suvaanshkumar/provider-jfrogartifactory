@@ -8,4 +8,4 @@ spec:
     secretRef:
       name: artifactory-credentials
       namespace: default
-      key: credentials.json
+      key: creds.json
