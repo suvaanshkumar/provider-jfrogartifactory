@@ -1,11 +1,9 @@
 apiVersion: repository.upbound.io/v1alpha1
 kind: GenericRepository
 metadata:
-  name: example-repository
+  name: upjet-test
 spec:
-  deletionPolicy: Delete
   forProvider:
-    name: example-repo-key
-    key: example-repo-key
+    key: repo-key
   providerConfigRef:
     name: my-artifactory-providerconfig
