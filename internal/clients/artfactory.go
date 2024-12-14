@@ -19,10 +19,14 @@ import (
 	"github.com/myorg/provider-artfactory/apis/v1beta1"
 )
 
+// Got the provider config fields from https://registry.terraform.io/providers/jfrog/artifactory/latest/docs
 const (
-	// Got this information from https://registry.terraform.io/providers/jfrog/artifactory/latest/docs#:~:text=provider%20%22artifactory%22%20%7B%0A%20%20url%20%20%20%20%20%20%20%20%20%20%20%3D%20%22%24%7Bvar.artifactory_url%7D/artifactory%22%0A%20%20access_token%20%20%3D%20%22%24%7Bvar.artifactory_access_token%7D%22%0A%7D
-	KeyURL         = "url"
+	// Key of field containing URL of Artifactory
+	KeyURL = "url"
+
+	// Key of field containing Artifactory access token
 	KeyAccessToken = "access_token"
+
 	// error messages
 	errNoProviderConfig     = "no providerConfigRef provided"
 	errGetProviderConfig    = "cannot get referenced ProviderConfig"
@@ -32,8 +36,7 @@ const (
 )
 
 // TerraformSetupBuilder builds Terraform a terraform.SetupFn function which
-// returns Terraform provider setup configuration
-
+// returns Terraform provider setup configuration.
 // Understanding: this function continuously monitors the providerconfig resource to fetch the credentials from the providerconfig and creates the terraform provider
 func TerraformSetupBuilder(version, providerSource, providerVersion string) terraform.SetupFn {
 	return func(ctx context.Context, client client.Client, mg resource.Managed) (terraform.Setup, error) {
