@@ -7,12 +7,60 @@ require (
 	github.com/crossplane/crossplane-runtime v1.16.0
 	github.com/crossplane/crossplane-tools v0.0.0-20240522174801-1ad3d4c87f21
 	github.com/crossplane/upjet v1.4.1
+	github.com/onsi/gomega v1.30.0
 	github.com/pkg/errors v0.9.1
 	gopkg.in/alecthomas/kingpin.v2 v2.2.6
 	k8s.io/apimachinery v0.29.1
 	k8s.io/client-go v0.29.1
 	sigs.k8s.io/controller-runtime v0.17.0
 	sigs.k8s.io/controller-tools v0.14.0
+)
+
+require (
+	github.com/CycloneDX/cyclonedx-go v0.8.0 // indirect
+	github.com/Microsoft/go-winio v0.6.1 // indirect
+	github.com/ProtonMail/go-crypto v1.0.0 // indirect
+	github.com/andybalholm/brotli v1.1.0 // indirect
+	github.com/cloudflare/circl v1.3.7 // indirect
+	github.com/cyphar/filepath-securejoin v0.2.4 // indirect
+	github.com/dsnet/compress v0.0.1 // indirect
+	github.com/emirpasic/gods v1.18.1 // indirect
+	github.com/forPelevin/gomoji v1.2.0 // indirect
+	github.com/go-git/gcfg v1.5.1-0.20230307220236-3a3c6141e376 // indirect
+	github.com/go-git/go-billy/v5 v5.5.0 // indirect
+	github.com/go-git/go-git/v5 v5.12.0 // indirect
+	github.com/golang-jwt/jwt/v4 v4.5.0 // indirect
+	github.com/golang/snappy v0.0.4 // indirect
+	github.com/gookit/color v1.5.4 // indirect
+	github.com/jbenet/go-context v0.0.0-20150711004518-d14ea06fba99 // indirect
+	github.com/jfrog/archiver/v3 v3.6.0 // indirect
+	github.com/jfrog/build-info-go v1.9.26 // indirect
+	github.com/jfrog/gofrog v1.7.1 // indirect
+	github.com/jfrog/jfrog-client-go v1.40.2 // indirect
+	github.com/kevinburke/ssh_config v1.2.0 // indirect
+	github.com/klauspost/compress v1.17.4 // indirect
+	github.com/klauspost/cpuid/v2 v2.2.3 // indirect
+	github.com/klauspost/pgzip v1.2.6 // indirect
+	github.com/minio/sha256-simd v1.0.1 // indirect
+	github.com/nwaples/rardecode v1.1.3 // indirect
+	github.com/pierrec/lz4/v4 v4.1.21 // indirect
+	github.com/pjbgf/sha1cd v0.3.0 // indirect
+	github.com/rivo/uniseg v0.4.3 // indirect
+	github.com/sergi/go-diff v1.3.2-0.20230802210424-5b0b94c5c0d3 // indirect
+	github.com/skeema/knownhosts v1.2.2 // indirect
+	github.com/ulikunitz/xz v0.5.11 // indirect
+	github.com/xanzy/ssh-agent v0.3.3 // indirect
+	github.com/xi2/xz v0.0.0-20171230120015-48954b6210f8 // indirect
+	github.com/xo/terminfo v0.0.0-20210125001918-ca9a967f8778 // indirect
+	golang.org/x/crypto v0.23.0 // indirect
+	golang.org/x/sync v0.7.0 // indirect
+	gopkg.in/warnings.v0 v0.1.2 // indirect
+)
+
+require (
+	github.com/go-task/slim-sprig v0.0.0-20230315185526-52ccab3ef572 // indirect
+	github.com/google/pprof v0.0.0-20240117000934-35fc243c5815 // indirect
+	github.com/onsi/ginkgo/v2 v2.14.0
 )
 
 require (
@@ -68,6 +116,7 @@ require (
 	github.com/inconshreveable/mousetrap v1.1.0 // indirect
 	github.com/josharian/intern v1.0.0 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
+	github.com/magefile/mage v1.15.0
 	github.com/mailru/easyjson v0.7.7 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect
 	github.com/mattn/go-isatty v0.0.20 // indirect
@@ -100,15 +149,15 @@ require (
 	github.com/zclconf/go-cty-yaml v1.0.3 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
 	go.uber.org/zap v1.26.0 // indirect
-	golang.org/x/exp v0.0.0-20240112132812-db7319d0e0e3 // indirect
-	golang.org/x/mod v0.14.0 // indirect
-	golang.org/x/net v0.23.0 // indirect
+	golang.org/x/exp v0.0.0-20240506185415-9bf2ced13842 // indirect
+	golang.org/x/mod v0.17.0 // indirect
+	golang.org/x/net v0.25.0 // indirect
 	golang.org/x/oauth2 v0.15.0 // indirect
-	golang.org/x/sys v0.18.0 // indirect
-	golang.org/x/term v0.18.0 // indirect
-	golang.org/x/text v0.14.0 // indirect
+	golang.org/x/sys v0.20.0 // indirect
+	golang.org/x/term v0.20.0 // indirect
+	golang.org/x/text v0.15.0 // indirect
 	golang.org/x/time v0.5.0 // indirect
-	golang.org/x/tools v0.17.0 // indirect
+	golang.org/x/tools v0.21.0 // indirect
 	gomodules.xyz/jsonpatch/v2 v2.4.0 // indirect
 	google.golang.org/appengine v1.6.8 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20231120223509-83a465c0220f // indirect

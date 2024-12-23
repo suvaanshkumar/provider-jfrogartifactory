@@ -69,10 +69,8 @@ Set the environment variable `ARTIFACTORY_LICENSE_KEY` in your local ~/.zshrc an
 
 in a terminal in the dev container:
 ```console
-kind create cluster
-helm install jfrog-platform --create-namespace -n jfrog-platform --set xray.enabled=false --set artifactory.artifactory.license.licenseKey="${ARTIFACTORY_LICENSE_KEY}" --set artifactory.access.accessConfig.token.allow-basic-auth=true jfrog/jfrog-platform
-kubectl wait --for=condition=Ready -n jfrog-platform pod/jfrog-platform-artifactory-0
-kubectl port-forward --namespace jfrog-platform svc/jfrog-platform-artifactory-nginx 8888:80
+mage setupE2E
+kubectl port-forward --namespace jfrog svc/artifactory-artifactory-nginx 8888:80
 ```
 
 in new terminal:
@@ -83,8 +81,7 @@ make run
 
 in new terminal:
 ```console
-curl -v -X POST -u admin:password http://localhost:8888/access/api/v1/tokens | jq '{access_token: .access_token, url: "http://localhost:8888"}' > examples/manifests/templates/creds.json
-kubectl create secret generic artifactory-credentials --from-file=examples/manifests/templates/creds.json
-kubectl apply -f examples/manifests/providerconfigartifactory.yaml
-kubectl apply -f examples/manifests/genericrepository.yaml
+kubectl apply -f e2e/providerconfig.yaml
+#kubectl apply -f examples/manifests/genericrepository.yaml
+mage testE2E
 ```
