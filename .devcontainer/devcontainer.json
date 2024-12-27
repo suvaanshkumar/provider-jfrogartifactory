@@ -23,7 +23,7 @@
 		"ghcr.io/devcontainers-extra/features/tfswitch:1": {}
 	},
 
-	"onCreateCommand": "tfswitch -b /home/vscode/terraform 1.5.7 ; helm repo add jfrog https://charts.jfrog.io ; go install github.com/magefile/mage@v1.15.0 ; go install github.com/onsi/ginkgo/v2/ginkgo",
+	"onCreateCommand": "tfswitch -b /home/vscode/terraform 1.5.7 ; helm repo add jfrog https://charts.jfrog.io ; go install github.com/magefile/mage@v1.15.0 ; go install github.com/onsi/ginkgo/v2/ginkgo ; go install golang.org/x/tools/cmd/goimports@v0.24.0",
 	"updateContentCommand": "go install github.com/golangci/golangci-lint/cmd/golangci-lint@v$(grep -E '^GOLANGCILINT_VERSION[[:space:]]*\\?=[[:space:]]*[[:digit:][:punct:]]*' Makefile | cut -d'=' -f2 | tr -d '[:space:]')",
 	"remoteEnv": {
 		"PATH": "${containerEnv:PATH}:/home/vscode",

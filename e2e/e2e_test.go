@@ -69,7 +69,7 @@ var _ = Describe("E2E Tests", func() {
 					},
 					Spec: v1alpha1.GenericRepositorySpec{
 						ForProvider: v1alpha1.GenericRepositoryParameters{
-							Key: ptr.To("UNUSED-repo-key"),
+							Description: ptr.To("Test repository"),
 						},
 						ResourceSpec: v1.ResourceSpec{
 							ProviderConfigReference: &v1.Reference{
@@ -111,6 +111,7 @@ var _ = Describe("E2E Tests", func() {
 				err = rtClient.GetRepository("test-repo", &repoDetails)
 				Expect(err).NotTo(HaveOccurred())
 				Expect(repoDetails.Key).To(Equal("test-repo"))
+				Expect(repoDetails.Description).To(Equal("Test repository"))
 				Expect(repoDetails.GetRepoType()).To(Equal("local"))
 				Expect(repoDetails.PackageType).To(Equal("generic"))
 			})

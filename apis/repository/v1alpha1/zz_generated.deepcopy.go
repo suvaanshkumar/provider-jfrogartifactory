@@ -77,11 +77,6 @@ func (in *GenericRepositoryInitParameters) DeepCopyInto(out *GenericRepositoryIn
 		*out = new(string)
 		**out = **in
 	}
-	if in.Key != nil {
-		in, out := &in.Key, &out.Key
-		*out = new(string)
-		**out = **in
-	}
 	if in.Notes != nil {
 		in, out := &in.Notes, &out.Notes
 		*out = new(string)
@@ -216,11 +211,6 @@ func (in *GenericRepositoryObservation) DeepCopyInto(out *GenericRepositoryObser
 		*out = new(string)
 		**out = **in
 	}
-	if in.Key != nil {
-		in, out := &in.Key, &out.Key
-		*out = new(string)
-		**out = **in
-	}
 	if in.Notes != nil {
 		in, out := &in.Notes, &out.Notes
 		*out = new(string)
@@ -320,11 +310,6 @@ func (in *GenericRepositoryParameters) DeepCopyInto(out *GenericRepositoryParame
 	}
 	if in.IncludesPattern != nil {
 		in, out := &in.IncludesPattern, &out.IncludesPattern
-		*out = new(string)
-		**out = **in
-	}
-	if in.Key != nil {
-		in, out := &in.Key, &out.Key
 		*out = new(string)
 		**out = **in
 	}
