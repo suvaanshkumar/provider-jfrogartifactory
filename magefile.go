@@ -7,6 +7,7 @@ import (
 	"github.com/myorg/provider-artfactory/e2e"
 )
 
+// SetupE2E sets up the environment for end-to-end tests.
 func SetupE2E() error {
 	err := e2e.EnsureKindCluster("kind")
 
@@ -23,6 +24,7 @@ func SetupE2E() error {
 	return e2e.UpdateCredentials()
 }
 
+// TestE2E runs the end-to-end tests.
 func TestE2E() error {
 	// See: https://onsi.github.io/ginkgo/#recommended-continuous-integration-configuration
 	return sh.RunV("ginkgo", "-r", "-v", "e2e",
@@ -33,4 +35,9 @@ func TestE2E() error {
 		"--keep-going",
 		"--procs=4",
 	)
+}
+
+// Lint runs golangci-lint on the project.
+func Lint() error {
+	return sh.RunV("golangci-lint", "run")
 }
