@@ -108,11 +108,6 @@ spec:
                       When used, only artifacts matching one of the include patterns
                       are served. By default, all artifacts are included (`**/*`).
                     type: string
-                  key:
-                    description: A mandatory identifier for the repository that must
-                      be unique. Must be 1 - 64 alphanumeric and hyphen characters.
-                      It cannot contain spaces or special characters.
-                    type: string
                   notes:
                     description: Internal description.
                     type: string
@@ -199,11 +194,6 @@ spec:
                       when evaluating artifact requests in the form of `x/y/**/z/*`.
                       When used, only artifacts matching one of the include patterns
                       are served. By default, all artifacts are included (`**/*`).
-                    type: string
-                  key:
-                    description: A mandatory identifier for the repository that must
-                      be unique. Must be 1 - 64 alphanumeric and hyphen characters.
-                      It cannot contain spaces or special characters.
                     type: string
                   notes:
                     description: Internal description.
@@ -411,11 +401,6 @@ spec:
             required:
             - forProvider
             type: object
-            x-kubernetes-validations:
-            - message: spec.forProvider.key is a required parameter
-              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
-                || ''Update'' in self.managementPolicies) || has(self.forProvider.key)
-                || (has(self.initProvider) && has(self.initProvider.key))'
           status:
             description: GenericRepositoryStatus defines the observed state of GenericRepository.
             properties:
@@ -457,11 +442,6 @@ spec:
                       when evaluating artifact requests in the form of `x/y/**/z/*`.
                       When used, only artifacts matching one of the include patterns
                       are served. By default, all artifacts are included (`**/*`).
-                    type: string
-                  key:
-                    description: A mandatory identifier for the repository that must
-                      be unique. Must be 1 - 64 alphanumeric and hyphen characters.
-                      It cannot contain spaces or special characters.
                     type: string
                   notes:
                     description: Internal description.
