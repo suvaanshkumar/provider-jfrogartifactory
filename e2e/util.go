@@ -10,10 +10,11 @@ import (
 )
 
 const (
-	ARTIFACTORY_NAMESPACE    = "jfrog"
-	ARTIFACTORY_HELM_RELEASE = "artifactory"
+	artifactoryNamespace   = "jfrog"
+	artifactoryHelmRelease = "artifactory"
 )
 
+// KindClusterExists checks if a Kind cluster with the specified name exists.
 func KindClusterExists(name string) (bool, error) {
 	output, err := sh.Output("kind", "get", "clusters")
 
@@ -34,6 +35,7 @@ func KindClusterExists(name string) (bool, error) {
 	return false, nil
 }
 
+// CreateKindCluster creates a new Kind cluster with the given name.
 func CreateKindCluster(name string) error {
 	err := sh.RunV("kind", "create", "cluster", "--name", name)
 
@@ -44,6 +46,8 @@ func CreateKindCluster(name string) error {
 	return nil
 }
 
+// EnsureKindCluster checks if a Kind cluster with the specified name exists,
+// creating it if it does not. It returns an error if the validation or creation fails.
 func EnsureKindCluster(name string) error {
 	exists, err := KindClusterExists(name)
 
@@ -59,19 +63,22 @@ func EnsureKindCluster(name string) error {
 	return CreateKindCluster(name)
 }
 
+// InstallArtifactory installs the Artifactory Helm release, waits for the pod to be
+// created and reach the Ready state within specified timeouts, and returns an error
+// if any step fails or times out.
 func InstallArtifactory() error {
-	const POD_CREATION_TIMEOUT = 30 * time.Second
-	const POD_READY_TIMEOUT = 5 * time.Minute
+	const podCreationTimeout = 30 * time.Second
+	const podReadyTimeout = 5 * time.Minute
 	start := time.Now()
 
 	fmt.Println("Installing Artifactory...")
 	err := sh.Run(
 		"helm",
 		"install",
-		ARTIFACTORY_HELM_RELEASE,
+		artifactoryHelmRelease,
 		"--create-namespace",
 		"-n",
-		ARTIFACTORY_NAMESPACE,
+		artifactoryNamespace,
 		"--set",
 		"xray.enabled=false",
 		"--set",
@@ -98,25 +105,25 @@ func InstallArtifactory() error {
 			"wait",
 			"--for=condition=Ready",
 			"-n",
-			ARTIFACTORY_NAMESPACE,
-			"pod/"+ARTIFACTORY_HELM_RELEASE+"-0",
+			artifactoryNamespace,
+			"pod/"+artifactoryHelmRelease+"-0",
 		)
 
 		if err != nil {
-			if strings.Contains(errsb.String(), "pods \""+ARTIFACTORY_HELM_RELEASE+"-0\" not found") {
-				if time.Since(start) < POD_CREATION_TIMEOUT {
+			if strings.Contains(errsb.String(), "pods \""+artifactoryHelmRelease+"-0\" not found") {
+				if time.Since(start) < podCreationTimeout {
 					continue
 				}
 
-				return fmt.Errorf("artifactory pod not found after %v; will not retry", POD_CREATION_TIMEOUT)
+				return fmt.Errorf("artifactory pod not found after %v; will not retry", podCreationTimeout)
 			}
 
-			if strings.Contains(errsb.String(), "timed out waiting for the condition on pods/"+ARTIFACTORY_HELM_RELEASE+"-0") {
-				if time.Since(start) < POD_READY_TIMEOUT {
+			if strings.Contains(errsb.String(), "timed out waiting for the condition on pods/"+artifactoryHelmRelease+"-0") {
+				if time.Since(start) < podReadyTimeout {
 					continue
 				}
 
-				return fmt.Errorf("artifactory pod not ready after %v; will not retry", POD_READY_TIMEOUT)
+				return fmt.Errorf("artifactory pod not ready after %v; will not retry", podReadyTimeout)
 			}
 
 			fmt.Printf("Unhandled error: %s\n", err.Error())
@@ -131,8 +138,11 @@ func InstallArtifactory() error {
 	}
 }
 
+// ArtifactoryExists checks if the configured Artifactory Helm release is installed
+// in the given namespace. It returns a boolean indicating whether the release is
+// found, and an error if the Helm command fails.
 func ArtifactoryExists() (bool, error) {
-	output, err := sh.Output("helm", "list", "-n", ARTIFACTORY_NAMESPACE)
+	output, err := sh.Output("helm", "list", "-n", artifactoryNamespace)
 
 	if err != nil {
 		return false, err
@@ -143,7 +153,7 @@ func ArtifactoryExists() (bool, error) {
 
 	// check if the release name is in the list of releases
 	for _, releaseInfo := range releaseInfos {
-		if strings.Contains(releaseInfo, ARTIFACTORY_HELM_RELEASE) {
+		if strings.Contains(releaseInfo, artifactoryHelmRelease) {
 			return true, nil
 		}
 	}
@@ -151,6 +161,8 @@ func ArtifactoryExists() (bool, error) {
 	return false, nil
 }
 
+// EnsureArtifactory verifies the presence of an Artifactory instance and installs
+// it if necessary. If Artifactory is already installed, this function does nothing.
 func EnsureArtifactory() error {
 	exists, err := ArtifactoryExists()
 
@@ -166,6 +178,11 @@ func EnsureArtifactory() error {
 	return InstallArtifactory()
 }
 
+// UpdateCredentials re-runs the credentials job in the Kubernetes cluster to
+// generate the Artifactory credentials.
+//
+// Returns an error if either the deletion (when job exists) or creation fails,
+// nil otherwise.
 func UpdateCredentials() error {
 	outsb := strings.Builder{}
 	errsb := strings.Builder{}
