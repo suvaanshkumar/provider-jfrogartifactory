@@ -1,9 +1,11 @@
 apiVersion: repository.upbound.io/v1alpha1
 kind: GenericRepository
 metadata:
-  name: upjet-test
+  name: upjettestn
+  annotations:
+    crossplane.io/external-name: "test"
 spec:
   forProvider:
-    key: repo-key
+    description: "new"
   providerConfigRef:
     name: my-artifactory-providerconfig
