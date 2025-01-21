@@ -6,6 +6,6 @@ spec:
   credentials:
     source: Secret
     secretRef:
-      name: artifactory-credentials
-      namespace: default
-      key: creds.json
+      name: example-creds
+      namespace: crossplane-system
+      key: credentials
