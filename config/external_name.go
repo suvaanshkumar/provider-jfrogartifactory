@@ -12,6 +12,7 @@ var ExternalNameConfigs = map[string]config.ExternalName{
 	// Import requires using a randomly generated ID from provider: nl-2e21sda
 	// TODO: Not implemented yet: "artifactory_unmanaged_user":           config.NameAsIdentifier,
 	"artifactory_local_generic_repository": config.ParameterAsIdentifier("key"),
+	"artifactory_local_npm_repository":     config.ParameterAsIdentifier("key"),
 }
 
 // ExternalNameConfigurations applies all external name configs listed in the
