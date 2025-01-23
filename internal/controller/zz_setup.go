@@ -11,6 +11,7 @@ import (
 
 	providerconfig "github.com/myorg/provider-artfactory/internal/controller/providerconfig"
 	genericrepository "github.com/myorg/provider-artfactory/internal/controller/repository/genericrepository"
+	npmrepository "github.com/myorg/provider-artfactory/internal/controller/repository/npmrepository"
 )
 
 // Setup creates all controllers with the supplied logger and adds them to
@@ -19,6 +20,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 	for _, setup := range []func(ctrl.Manager, controller.Options) error{
 		providerconfig.Setup,
 		genericrepository.Setup,
+		npmrepository.Setup,
 	} {
 		if err := setup(mgr, o); err != nil {
 			return err
