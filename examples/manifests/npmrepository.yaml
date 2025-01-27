@@ -1,0 +1,11 @@
+apiVersion: repository.upbound.io/v1alpha1
+kind: NpmRepository
+metadata:
+  name: npmupjettest
+  annotations:
+    crossplane.io/external-name: "npmtest"
+spec:
+  forProvider:
+    description: "new"
+  providerConfigRef:
+    name: my-artifactory-providerconfig

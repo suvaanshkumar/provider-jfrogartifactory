@@ -13,6 +13,7 @@ var ExternalNameConfigs = map[string]config.ExternalName{
 	// TODO: Not implemented yet: "artifactory_unmanaged_user":           config.NameAsIdentifier,
 	"artifactory_local_generic_repository": config.ParameterAsIdentifier("key"),
 	"artifactory_local_npm_repository":     config.ParameterAsIdentifier("key"),
+	"artifactory_remote_npm_repository":    config.ParameterAsIdentifier("key"),
 }
 
 // ExternalNameConfigurations applies all external name configs listed in the

@@ -9,6 +9,7 @@ import (
 	_ "embed"
 	"github.com/myorg/provider-artfactory/config/repository"
 
+	"github.com/myorg/provider-artfactory/config/npmremoterepository"
 	"github.com/myorg/provider-artfactory/config/npmrepository"
 
 	ujconfig "github.com/crossplane/upjet/pkg/config"
@@ -39,6 +40,7 @@ func GetProvider() *ujconfig.Provider {
 		// add custom config functions
 		repository.Configure,
 		npmrepository.Configure,
+		npmremoterepository.Configure,
 	} {
 		configure(pc)
 	}

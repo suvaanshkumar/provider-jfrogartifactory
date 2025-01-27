@@ -4,6 +4,7 @@ In one of you terminals checkout this repository https://github.com/suvaanshkuma
 
 - Apply all the manifest files in package/crds
 - Generate an identity token on artifactory to be used here.
-- create a file similar to creds.json present in examples/manifests/template folder and fill in the url and the and key
+- create a file similar to creds.json present in examples/manifests/template folder and fill in the url and the key
 - Base64 encode this file and put it in the secret.yaml  file present in examples/manifests/template in data field and apply the secret 
-- apply the genericrepository.yaml
+- Apply the examples/manifests/providerconfigartifactory.yaml
+- apply the examples/manifests/genericrepository.yaml
