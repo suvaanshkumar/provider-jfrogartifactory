@@ -1,0 +1,60 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    gwcp.guidewire.com/app-name: crossplane_provider_provider-artfactory-7e66603d37a3_system
+    gwcp.guidewire.com/created-by: pod-danville
+    gwcp.guidewire.com/dept: "275"
+    gwcp.guidewire.com/maintained-by: pod-danville
+    gwcp.guidewire.com/tenant-name: quadrant-shared
+    gwcp.guidewire.com/version: master
+    rbac.crossplane.io/system: provider-artifactory
+  name: crossplane:provider:provider-artfactory-7e66603d37a3:system
+rules:
+  - apiGroups:
+      - repository.upbound.io
+    resources:
+      - genericrepositories
+      - genericrepositories/status
+    verbs:
+      - get
+      - list
+      - watch
+      - update
+      - patch
+      - create
+
+  - apiGroups:
+      - artfactory.upbound.io
+    resources:
+      - storeconfigs
+      - storeconfigs/status
+      - providerconfigusages
+      - providerconfigusages/status
+      - providerconfigs
+      - providerconfigs/status
+    verbs:
+      - get
+      - list
+      - watch
+      - update
+      - patch
+      - create
+
+  - apiGroups:
+      - repository.upbound.io
+      - artfactory.upbound.io
+    resources:
+      - '*/finalizers'
+    verbs:
+      - update
+  - apiGroups:
+      - ""
+      - coordination.k8s.io
+    resources:
+      - secrets
+      - configmaps
+      - events
+      - leases
+    verbs:
+      - '*'
