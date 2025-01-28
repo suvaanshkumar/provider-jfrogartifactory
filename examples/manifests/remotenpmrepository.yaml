@@ -1,0 +1,14 @@
+apiVersion: repository.upbound.io/v1alpha1
+kind: RemoteNpmRepository
+metadata:
+  name: remotenpmrepository
+  annotations:
+    crossplane.io/external-name: "remotenpmrepository"
+spec:
+  forProvider:
+    description: "new remote npm repository"
+    url: https://amer-write.binrepo.guidewire.net/artifactory/api/npm/localnpmrepository
+    username: <>
+    password: <>
+  providerConfigRef:
+    name: my-artifactory-providerconfig-read
