@@ -16,3 +16,21 @@ func (l *GenericRepositoryList) GetItems() []resource.Managed {
 	}
 	return items
 }
+
+// GetItems of this LocalNpmRepositoryList.
+func (l *LocalNpmRepositoryList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this RemoteNpmRepositoryList.
+func (l *RemoteNpmRepositoryList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
