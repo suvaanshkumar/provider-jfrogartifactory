@@ -1,0 +1,11 @@
+apiVersion: artfactory.upbound.io/v1beta1
+kind: ProviderConfig
+metadata:
+  name: my-artifactory-providerconfig-read
+spec:
+  credentials:
+    source: Secret
+    secretRef:
+      name: example-creds-read
+      namespace: crossplane-system
+      key: credentials
