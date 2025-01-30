@@ -32,12 +32,12 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/log/zap"
 	"sigs.k8s.io/controller-runtime/pkg/metrics"
 
-	"github.com/myorg/provider-artfactory/apis"
-	"github.com/myorg/provider-artfactory/apis/v1alpha1"
-	"github.com/myorg/provider-artfactory/config"
-	"github.com/myorg/provider-artfactory/internal/clients"
-	"github.com/myorg/provider-artfactory/internal/controller"
-	"github.com/myorg/provider-artfactory/internal/features"
+	"github.com/myorg/provider-jfrogartifactory/apis"
+	"github.com/myorg/provider-jfrogartifactory/apis/v1alpha1"
+	"github.com/myorg/provider-jfrogartifactory/config"
+	"github.com/myorg/provider-jfrogartifactory/internal/clients"
+	"github.com/myorg/provider-jfrogartifactory/internal/controller"
+	"github.com/myorg/provider-jfrogartifactory/internal/features"
 )
 
 func main() {
@@ -63,7 +63,7 @@ func main() {
 	kingpin.MustParse(app.Parse(os.Args[1:]))
 
 	zl := zap.New(zap.UseDevMode(*debug))
-	log := logging.NewLogrLogger(zl.WithName("provider-artfactory"))
+	log := logging.NewLogrLogger(zl.WithName("provider-jfrogartifactory"))
 	if *debug {
 		// The controller-runtime runs with a no-op logger by default. It is
 		// *very* verbose even at info level, so we only provide it a real
@@ -82,7 +82,7 @@ func main() {
 
 	mgr, err := ctrl.NewManager(cfg, ctrl.Options{
 		LeaderElection:   *leaderElection,
-		LeaderElectionID: "crossplane-leader-election-provider-artfactory",
+		LeaderElectionID: "crossplane-leader-election-provider-jfrogartifactory",
 		Cache: cache.Options{
 			SyncPeriod: syncPeriod,
 		},
