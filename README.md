@@ -85,3 +85,17 @@ kubectl apply -f e2e/providerconfig.yaml
 #kubectl apply -f examples/manifests/genericrepository.yaml
 mage testE2E
 ```
+
+
+# Manual testing by applying resources
+## Steps to use this provider artifactory
+- In a cluster ,Apply all the manifest files in package/crds
+In one of you terminals checkout this repository https://github.com/suvaanshkumar/provider-jfrogartifactory amd run `make run`
+
+In another terminal run the following
+
+- Generate an identity token on artifactory to be used here.
+- Create a file similar to creds.json present in examples/manifests/template folder and fill in the url and the and key
+- Base64 encode this file and put it in the secret.yaml  file present in examples/manifests/template in data field and apply the secret
+- Apply providerconfigartifactory.yaml present in examples/manifests
+- Apply the genericrepository.yaml or any other resource you want
