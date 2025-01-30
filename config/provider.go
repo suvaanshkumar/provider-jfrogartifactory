@@ -8,6 +8,8 @@ import (
 	// Note(turkenh): we are importing this to embed provider schema document
 	_ "embed"
 
+	"github.com/myorg/provider-artfactory/config/localnpmrepository"
+	"github.com/myorg/provider-artfactory/config/remotenpmrepository"
 	"github.com/myorg/provider-artfactory/config/repository"
 
 	ujconfig "github.com/crossplane/upjet/pkg/config"
@@ -37,6 +39,8 @@ func GetProvider() *ujconfig.Provider {
 	for _, configure := range []func(provider *ujconfig.Provider){
 		// add custom config functions
 		repository.Configure,
+		localnpmrepository.Configure,
+		remotenpmrepository.Configure,
 	} {
 		configure(pc)
 	}

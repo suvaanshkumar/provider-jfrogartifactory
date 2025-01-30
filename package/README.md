@@ -6,4 +6,4 @@ In one of you terminals checkout this repository https://github.com/suvaanshkuma
 - Generate an identity token on artifactory to be used here.
 - create a file similar to creds.json present in examples/manifests/template folder and fill in the url and the and key
 - Base64 encode this file and put it in the secret.yaml  file present in examples/manifests/template in data field and apply the secret 
-- apply the genericrepository.yaml
+- apply the genericrepository.yaml or any other resource you want
