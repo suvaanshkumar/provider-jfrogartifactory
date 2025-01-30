@@ -6,6 +6,7 @@ package main
 
 import (
 	"context"
+	"io"
 	"os"
 	"path/filepath"
 	"time"
@@ -68,6 +69,10 @@ func main() {
 		// *very* verbose even at info level, so we only provide it a real
 		// logger when we're running in debug mode.
 		ctrl.SetLogger(zl)
+	} else {
+		// In non debug mode, setting the logger to no-op to fix the runtime warning which says
+		// log.SetLogger(...) was never called
+		ctrl.SetLogger(zap.New(zap.WriteTo(io.Discard)))
 	}
 
 	log.Debug("Starting", "sync-period", syncPeriod.String(), "poll-interval", pollInterval.String(), "max-reconcile-rate", *maxReconcileRate)
