@@ -7,8 +7,8 @@ metadata:
 spec:
   forProvider:
     description: "new remote npm repository"
-    url: https://amer-write.binrepo.guidewire.net/artifactory/api/npm/localnpmrepository/
-    username: sys-kanata-binrepo
+    url: ***REMOVED***
+    username: ***REMOVED***
     passwordSecretRef:
       key: passwords
       name: secretremote
